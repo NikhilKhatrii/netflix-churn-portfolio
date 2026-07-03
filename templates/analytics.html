@@ -1,0 +1,418 @@
+{% extends 'base.html' %}
+
+{% block title %}Analytics & Insights — Netflix Churn Analysis{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════════════════════
+     ANALYTICS HERO
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="analytics-hero" id="analytics-hero">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <p class="section-tag">Case Study Deep Dive</p>
+            <h1 class="section-title">Data-Driven<br>Churn Intelligence</h1>
+            <p class="section-subtitle">
+                A narrative walkthrough of the behavioral patterns extracted from
+                the Netflix customer dataset — animated with the actual numbers.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     DATA SOURCES — Quick Links
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="section resources-section compact" id="data-sources">
+    <div class="container">
+        <div class="resources-grid">
+            <a href="https://www.kaggle.com/datasets/abdulwadood11220/netflix-customer-churn-dataset" target="_blank" rel="noopener" class="resource-card animate-on-scroll" id="analytics-resource-kaggle">
+                <div class="resource-icon kaggle">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.33-.246.495-.246h3.239c.144 0 .236.06.281.18.046.149.034.238-.036.27l-6.555 6.344 6.836 8.507c.095.118.116.211.07.351z"/>
+                    </svg>
+                </div>
+                <div class="resource-body">
+                    <h3>Kaggle Dataset</h3>
+                    <p>Netflix Customer Churn Dataset — the source data powering this case study.</p>
+                    <span class="resource-link-label">
+                        Open on Kaggle
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 12L12 4M12 4H5M12 4v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </div>
+            </a>
+
+            <a href="https://colab.research.google.com/drive/1EW3bN-aTwctMu4_jax6UfcQS5GViVh3P?usp=sharing" target="_blank" rel="noopener" class="resource-card animate-on-scroll" id="analytics-resource-colab">
+                <div class="resource-icon colab">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16.941 4.976a7.033 7.033 0 00-4.93-2.064 7.033 7.033 0 00-4.934 2.064c-2.722 2.722-2.722 7.136 0 9.859l4.569 4.569c.199.199.521.199.721 0l4.574-4.569c2.722-2.723 2.722-7.137 0-9.859zM12.012 17.394l-3.85-3.85a5.455 5.455 0 010-7.715 5.421 5.421 0 013.85-1.596c1.455 0 2.826.567 3.855 1.596a5.455 5.455 0 010 7.715l-3.855 3.85z"/>
+                        <path d="M12.012 7.986a2.99 2.99 0 00-2.988 2.988 2.99 2.99 0 002.988 2.988 2.99 2.99 0 002.988-2.988 2.99 2.99 0 00-2.988-2.988z"/>
+                    </svg>
+                </div>
+                <div class="resource-body">
+                    <h3>Colab Notebook</h3>
+                    <p>Full analysis pipeline — EDA, preprocessing, feature engineering &amp; model training.</p>
+                    <span class="resource-link-label">
+                        Open in Colab
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 12L12 4M12 4H5M12 4v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     EXECUTIVE SUMMARY — At-a-Glance Metrics
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="section metrics-section" id="executive-summary">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <p class="section-tag">Executive Summary</p>
+            <h2 class="section-title">Retention vs. Churn — By the Numbers</h2>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card animate-on-scroll" id="metric-retained-hours">
+                <div class="metric-ring retained">
+                    <svg viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="8"/>
+                        <circle cx="60" cy="60" r="52" fill="none" stroke="url(#grad-retained)" stroke-width="8"
+                                stroke-dasharray="326.73" stroke-dashoffset="65" stroke-linecap="round"
+                                transform="rotate(-90 60 60)"/>
+                        <defs>
+                            <linearGradient id="grad-retained" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#34d399"/>
+                                <stop offset="100%" stop-color="#06b6d4"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="metric-ring-value">
+                        <span class="counter" data-target="20" data-decimals="0" data-suffix="h">0</span>
+                    </div>
+                </div>
+                <h3>Retained Users</h3>
+                <p>Average weekly watch hours</p>
+                <span class="metric-range">16 – 20 hours/week</span>
+            </div>
+
+            <div class="metric-card animate-on-scroll" id="metric-churn-hours">
+                <div class="metric-ring churn">
+                    <svg viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="8"/>
+                        <circle cx="60" cy="60" r="52" fill="none" stroke="url(#grad-churn)" stroke-width="8"
+                                stroke-dasharray="326.73" stroke-dashoffset="260" stroke-linecap="round"
+                                transform="rotate(-90 60 60)"/>
+                        <defs>
+                            <linearGradient id="grad-churn" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#f87171"/>
+                                <stop offset="100%" stop-color="#fb923c"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="metric-ring-value">
+                        <span class="counter" data-target="5.5" data-decimals="1" data-suffix="h">0</span>
+                    </div>
+                </div>
+                <h3>Churned Users</h3>
+                <p>Average weekly watch hours</p>
+                <span class="metric-range danger">5.5 – 6.4 hours/week</span>
+            </div>
+
+            <div class="metric-card animate-on-scroll" id="metric-retained-profiles">
+                <div class="metric-ring retained">
+                    <svg viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="8"/>
+                        <circle cx="60" cy="60" r="52" fill="none" stroke="url(#grad-retained2)" stroke-width="8"
+                                stroke-dasharray="326.73" stroke-dashoffset="95" stroke-linecap="round"
+                                transform="rotate(-90 60 60)"/>
+                        <defs>
+                            <linearGradient id="grad-retained2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#818cf8"/>
+                                <stop offset="100%" stop-color="#c084fc"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="metric-ring-value">
+                        <span class="counter" data-target="3.5" data-decimals="1">0</span>
+                    </div>
+                </div>
+                <h3>Retained Profiles</h3>
+                <p>Avg profiles per account</p>
+                <span class="metric-range">3.1 – 3.5 profiles</span>
+            </div>
+
+            <div class="metric-card animate-on-scroll" id="metric-churn-profiles">
+                <div class="metric-ring churn">
+                    <svg viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="8"/>
+                        <circle cx="60" cy="60" r="52" fill="none" stroke="url(#grad-churn2)" stroke-width="8"
+                                stroke-dasharray="326.73" stroke-dashoffset="230" stroke-linecap="round"
+                                transform="rotate(-90 60 60)"/>
+                        <defs>
+                            <linearGradient id="grad-churn2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#fbbf24"/>
+                                <stop offset="100%" stop-color="#f97316"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="metric-ring-value">
+                        <span class="counter" data-target="2.6" data-decimals="1">0</span>
+                    </div>
+                </div>
+                <h3>Churned Profiles</h3>
+                <p>Avg profiles per account</p>
+                <span class="metric-range danger">2.6 – 2.9 profiles</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FINDING 1 — Household Multiplier Effect
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="section insight-section" id="household-effect">
+    <div class="container">
+        <div class="insight-layout">
+            <div class="insight-text animate-on-scroll">
+                <p class="section-tag">Primary Finding</p>
+                <h2 class="section-title">The Household<br>Multiplier Effect</h2>
+                <p class="insight-body">
+                    Account sharing and family profiles serve as a <strong>powerful
+                    retention mechanism</strong>. When multiple household members
+                    rely on a single subscription, the perceived cost-per-user
+                    decreases dramatically — making the account highly resilient
+                    to cancellation.
+                </p>
+                <div class="insight-detail-list">
+                    <div class="insight-detail">
+                        <span class="detail-indicator retained"></span>
+                        <div>
+                            <strong>Retained Users (Label 0)</strong>
+                            <p>Maintain an average of <strong>3.1 to 3.5</strong> profiles per account</p>
+                        </div>
+                    </div>
+                    <div class="insight-detail">
+                        <span class="detail-indicator churned"></span>
+                        <div>
+                            <strong>Churned Users (Label 1)</strong>
+                            <p>Drop below an average of <strong>3 profiles</strong> (typically 2.6 to 2.9)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-visual animate-on-scroll">
+                <div class="comparison-bars">
+                    <div class="bar-group">
+                        <div class="bar-label">Retained (0)</div>
+                        <div class="bar-track">
+                            <div class="bar-fill retained" style="--fill-width: 87.5%;">
+                                <span class="bar-value">3.5 Profiles</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar-label">Churned (1)</div>
+                        <div class="bar-track">
+                            <div class="bar-fill churned" style="--fill-width: 65%;">
+                                <span class="bar-value">2.6 Profiles</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bar-scale">
+                        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>
+                    </div>
+                </div>
+                <p class="visual-caption">Average number of profiles per account by retention status</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FINDING 2 — Engagement Drop-Off Cliff
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="section insight-section alt" id="engagement-cliff">
+    <div class="container">
+        <div class="insight-layout reverse">
+            <div class="insight-text animate-on-scroll">
+                <p class="section-tag">Critical Threshold</p>
+                <h2 class="section-title">The Engagement<br>Drop-Off Cliff</h2>
+                <p class="insight-body">
+                    There is a <strong>strict engagement threshold</strong> below which
+                    users are at an extreme statistical risk of cancellation.
+                    The data reveals a dramatic cliff — not a gradual decline —
+                    in weekly consumption hours between retained and churned subscribers.
+                </p>
+                <div class="insight-detail-list">
+                    <div class="insight-detail">
+                        <span class="detail-indicator retained"></span>
+                        <div>
+                            <strong>Retained Users (Label 0)</strong>
+                            <p>Consume an average of <strong>16 to 20</strong> weekly watch hours</p>
+                        </div>
+                    </div>
+                    <div class="insight-detail">
+                        <span class="detail-indicator churned"></span>
+                        <div>
+                            <strong>Churned Users (Label 1)</strong>
+                            <p>Crater to a critical danger zone of <strong>5.5 to 6.4</strong> weekly hours</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-visual animate-on-scroll">
+                <div class="comparison-bars">
+                    <div class="bar-group">
+                        <div class="bar-label">Retained (0)</div>
+                        <div class="bar-track">
+                            <div class="bar-fill retained" style="--fill-width: 83%;">
+                                <span class="bar-value">20 Hours</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar-label">Churned (1)</div>
+                        <div class="bar-track">
+                            <div class="bar-fill churned" style="--fill-width: 23%;">
+                                <span class="bar-value">5.5 Hours</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bar-scale">
+                        <span>0</span><span>6</span><span>12</span><span>18</span><span>24</span>
+                    </div>
+                </div>
+                <p class="visual-caption">Average weekly watch hours by retention status</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FINDING 3 — Demographic & Behavioral Clusters
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="section insight-section" id="risk-clusters">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <p class="section-tag">Behavioral Matrix</p>
+            <h2 class="section-title">Demographic & Risk Clusters</h2>
+            <p class="section-subtitle">
+                High-risk customer segments form distinct clusters where low
+                platform usage meets an increased number of days since last login.
+            </p>
+        </div>
+
+        <div class="cluster-grid">
+            <div class="cluster-card animate-on-scroll" id="cluster-high-risk">
+                <div class="cluster-badge danger">HIGH RISK</div>
+                <h3>Disengaged Dormant</h3>
+                <p>
+                    Users with <strong>&lt; 6 weekly hours</strong> and a login gap
+                    exceeding the median. These accounts show the strongest churn signals.
+                </p>
+                <div class="cluster-indicators">
+                    <div class="indicator">
+                        <span class="ind-label">Watch Hours</span>
+                        <div class="ind-bar"><div class="ind-fill" style="width: 22%; background: linear-gradient(90deg, #f87171, #fb923c);"></div></div>
+                        <span class="ind-val">Low</span>
+                    </div>
+                    <div class="indicator">
+                        <span class="ind-label">Login Gap</span>
+                        <div class="ind-bar"><div class="ind-fill" style="width: 85%; background: linear-gradient(90deg, #f87171, #fb923c);"></div></div>
+                        <span class="ind-val">High</span>
+                    </div>
+                    <div class="indicator">
+                        <span class="ind-label">Profiles</span>
+                        <div class="ind-bar"><div class="ind-fill" style="width: 35%; background: linear-gradient(90deg, #fbbf24, #f97316);"></div></div>
+                        <span class="ind-val">Low</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cluster-card animate-on-scroll" id="cluster-at-risk">
+                <div class="cluster-badge warning">AT RISK</div>
+                <h3>Passive Subscriber</h3>
+                <p>
+                    Users hovering near the <strong>6-hour threshold</strong> with
+                    moderate login frequency. They may re-engage with targeted intervention.
+                </p>
+                <div class="cluster-indicators">
+                    <div class="indicator">
+                        <span class="ind-label">Watch Hours</span>
+                        <div class="ind-bar"><div class="ind-fill" style="width: 38%; background: linear-gradient(90deg, #fbbf24, #f97316);"></div></div>
+                        <span class="ind-val">Moderate</span>
+                    </div>
+                    <div class="indicator">
+                        <span class="ind-label">Login Gap</span>
+                        <div class="ind-bar"><div class="ind-fill" style="width: 52%; background: linear-gradient(90deg, #fbbf24, #f97316);"></div></div>
+                        <span class="ind-val">Moderate</span>
+                    </div>
+                    <div class="indicator">
+                        <span class="ind-label">Profiles</span>
+                        <div class="ind-bar"><div class="ind-fill" style="width: 55%; background: linear-gradient(90deg, #818cf8, #c084fc);"></div></div>
+                        <span class="ind-val">~3</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cluster-card animate-on-scroll" id="cluster-safe">
+                <div class="cluster-badge safe">RETAINED</div>
+                <h3>Active Household</h3>
+                <p>
+                    Users with <strong>16+ weekly hours</strong>, frequent logins,
+                    and multiple household profiles. The most stable and resilient segment.
+                </p>
+                <div class="cluster-indicators">
+                    <div class="indicator">
+                        <span class="ind-label">Watch Hours</span>
+                        <div class="ind-bar"><div class="ind-fill" style="width: 85%; background: linear-gradient(90deg, #34d399, #06b6d4);"></div></div>
+                        <span class="ind-val">High</span>
+                    </div>
+                    <div class="indicator">
+                        <span class="ind-label">Login Gap</span>
+                        <div class="ind-bar"><div class="ind-fill" style="width: 15%; background: linear-gradient(90deg, #34d399, #06b6d4);"></div></div>
+                        <span class="ind-val">Low</span>
+                    </div>
+                    <div class="indicator">
+                        <span class="ind-label">Profiles</span>
+                        <div class="ind-bar"><div class="ind-fill" style="width: 88%; background: linear-gradient(90deg, #34d399, #06b6d4);"></div></div>
+                        <span class="ind-val">3.5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CTA SECTION
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="section cta-section" id="analytics-cta">
+    <div class="container">
+        <div class="cta-block animate-on-scroll">
+            <h2>Explore the Full Interactive Dashboard</h2>
+            <p>Dive into the complete Tableau workspace to interact with filters, drill-downs, and multi-dimensional views.</p>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary" id="cta-go-dashboard">
+                Open Tableau Dashboard
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
