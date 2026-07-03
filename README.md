@@ -42,8 +42,10 @@ A premium, cinematic Flask web application showcasing an enterprise-grade **Netf
 netflix_churn_portfolio/
 ├── app.py                          # Flask routes
 ├── requirements.txt                # Dependencies
-├── exported_netflix_data.csv       # Cleaned dataset
-├── NetflixCustomerChurn.ipynb      # Jupyter notebook (analysis)
+├── dataset/
+│   └── exported_netflix_data.csv   # Cleaned dataset
+├── notebook/
+│   └── NetflixCustomerChurn.ipynb  # Jupyter notebook (analysis)
 ├── static/
 │   ├── css/main.css                # Premium dark-mode design system
 │   └── js/
