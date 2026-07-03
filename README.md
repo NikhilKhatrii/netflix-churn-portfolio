@@ -5,7 +5,10 @@ A premium, cinematic Flask web application showcasing an enterprise-grade **Netf
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-3.1-000000?logo=flask&logoColor=white)
 ![Tableau](https://img.shields.io/badge/Tableau-Public-E97627?logo=tableau&logoColor=white)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-E91E63?style=flat-square&logo=render)](https://netflix-churn-portfolio.onrender.com)
 ![License](https://img.shields.io/badge/License-MIT-green)
+
+**Live Demo:** [https://netflix-churn-portfolio.onrender.com](https://netflix-churn-portfolio.onrender.com)
 
 ---
 
