@@ -2,11 +2,9 @@
 
 A premium, cinematic Flask web application showcasing an enterprise-grade **Netflix Customer Churn Analysis** case study. Built with smooth scroll animations, animated data counters, and an embedded interactive Tableau dashboard.
 
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-3.1-000000?logo=flask&logoColor=white)
-![Tableau](https://img.shields.io/badge/Tableau-Public-E97627?logo=tableau&logoColor=white)
-[![Live Demo](https://img.shields.io/badge/Live-Demo-E91E63?style=flat-square&logo=render)](https://netflix-churn-portfolio.onrender.com)
-![License](https://img.shields.io/badge/License-MIT-green)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-E91E63?style=flat&logo=render&logoColor=white)](https://netflix-churn-portfolio.onrender.com)
+[![Kaggle Dataset](https://img.shields.io/badge/Kaggle-Dataset-20BEFF?style=flat&logo=kaggle&logoColor=white)](https://www.kaggle.com/datasets/abdulwadood11220/netflix-customer-churn-dataset)
+[![Google Colab](https://img.shields.io/badge/Google-Colab-F9AB00?style=flat&logo=googlecolab&logoColor=white)](https://colab.research.google.com/drive/1EW3bN-aTwctMu4_jax6UfcQS5GViVh3P?usp=sharing)
 
 **Live Demo:** [https://netflix-churn-portfolio.onrender.com](https://netflix-churn-portfolio.onrender.com)
 
